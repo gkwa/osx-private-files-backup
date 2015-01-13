@@ -1,18 +1,24 @@
 date=$(shell date +%Y%m%d%H%M%S)
+basename1=osx_private_taylor
+basename=osx_private_taylor_$(date)
+zip=$(basename).zip
 7Z=7z
 
-base1=osx_private_taylor
-basename=$(base1)_$(date)
+FILE_LIST =
+FILE_LIST+= ~/Library/Keychains
+FILE_LIST+= ~/.ssh
+FILE_LIST+= ~/Library/Containers/com.microsoft.rdc.mac/Data/Library/Preferences/com.microsoft.rdc.mac.plist
 
-$(basename).7z:
-	$(7Z) a -mx9 $@ ~/Library/Keychains
-	$(7Z) a -mx9 $@ ~/.ssh
+upload: ~/Dropbox/Taylor
+upload: $(zip)
+	scp -o ConnectTimeout=10 -q $(zip) dev:~/
+	cp $(zip) ~/Dropbox/Taylor
 
-db: dropbox
-dropbox: ~/Dropbox/Taylor/$(basename).7z
-	cp $(basename).7z $<
-
-~/Dropbox/Taylor/$(basename).7z: $(basename).7z
+zip: $(zip)
+$(zip):
+	@find $(FILE_LIST) | cpio -pamd --quiet $(basename)
+	@cd $(basename) && $(7Z) a -PStre@mb0x -mx9 -tzip ../$(zip) * >/dev/null
 
 clean:
-	rm -rf $(base1)_[0-9]*.7z
+	rm -rf $(basename1)*
+	rm -f $(zip)
