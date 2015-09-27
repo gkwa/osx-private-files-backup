@@ -11,7 +11,7 @@ FILE_LIST+= ~/Library/Containers/com.microsoft.rdc.mac/Data/Library/Preferences/
 
 upload: ~/Dropbox/Taylor
 upload: $(zip)
-	scp -o ConnectTimeout=10 -q $(zip) dev:~/
+	scp -o ConnectTimeout=10 -q $(zip) dev:
 	cp $(zip) ~/Dropbox/Taylor
 
 zip: $(zip)
