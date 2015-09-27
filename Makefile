@@ -1,6 +1,6 @@
 date=$(shell date +%Y%m%d%H%M%S)
 basename1=osx_private_taylor
-basename:=osx_private_taylor_$(date)
+basename:=$(basename1)_$(date)
 zip=$(basename).zip
 7Z=7z
 
